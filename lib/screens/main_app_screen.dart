@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -41,7 +42,9 @@ class _MainAppScreenState extends State<MainAppScreen> {
       final List<Quote> loadedQuotes = quoteFromJson(jsonString);
 
       final prefs = await SharedPreferences.getInstance();
-      final int savedIndex = prefs.getInt('lastIndex') ?? 0;
+      // Randomize the starting index instead of always defaulting to 0
+      final int savedIndex =
+          prefs.getInt('lastIndex') ?? Random().nextInt(loadedQuotes.length);
       final List<String>? savedFavorites = prefs.getStringList('favorites');
 
       setState(() {
@@ -59,15 +62,16 @@ class _MainAppScreenState extends State<MainAppScreen> {
   }
 
   List<Quote> get filteredQuotes {
-  if (_selectedCategory == null) return _quotes;
+    if (_selectedCategory == null) return _quotes;
 
-  return _quotes.where((q) =>
-      q.category.trim().toLowerCase() ==
-      _selectedCategory!.trim().toLowerCase()
-  ).toList();
-}
-
-
+    return _quotes
+        .where(
+          (q) =>
+              q.category.trim().toLowerCase() ==
+              _selectedCategory!.trim().toLowerCase(),
+        )
+        .toList();
+  }
 
   Future<void> toggleFavorite(int quoteId) async {
     final prefs = await SharedPreferences.getInstance();
@@ -85,26 +89,31 @@ class _MainAppScreenState extends State<MainAppScreen> {
       _favoriteIds.map((e) => e.toString()).toList(),
     );
   }
-void selectCategory(String category) {
-  setState(() {
-    _selectedCategory = category;
-    _currentIndex = 0;
-    _pageIndex = 0; 
-  });
-}
 
-
+  void selectCategory(String category) {
+    setState(() {
+      _selectedCategory = category;
+      _currentIndex = 0;
+      _pageIndex = 0;
+    });
+  }
 
   Future<void> refreshQuote() async {
-  final currentList = filteredQuotes;
+    final currentList = filteredQuotes;
+    if (currentList.isEmpty) return;
 
-  if (currentList.isEmpty) return;
+    final random = Random();
+    int newIndex;
 
-  setState(() {
-    _currentIndex = (_currentIndex + 1) % currentList.length;
-  });
-}
+    // Avoid showing the same quote twice in a row
+    do {
+      newIndex = random.nextInt(currentList.length);
+    } while (newIndex == _currentIndex && currentList.length > 1);
 
+    setState(() {
+      _currentIndex = newIndex;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {

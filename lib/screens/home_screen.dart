@@ -30,15 +30,15 @@ class _HomeScreenState extends State<HomeScreen> {
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
     if (widget.quotes.isEmpty) {
-  return const Scaffold(
-    body: Center(
-      child: Text(
-        "No quotes found for this category",
-        style: TextStyle(fontSize: 18),
-      ),
-    ),
-  );
-}
+      return const Scaffold(
+        body: Center(
+          child: Text(
+            "No quotes found for this category",
+            style: TextStyle(fontSize: 18),
+          ),
+        ),
+      );
+    }
 
     final quote = widget.quotes[widget.currentIndex];
 
@@ -137,7 +137,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     radius: 20,
                                     child: IconButton(
                                       onPressed: widget.onRefresh,
-                                      icon: const Icon(Icons.refresh),
+                                      icon: const Icon(Icons.arrow_forward),
                                     ),
                                   ),
                                 ],
@@ -161,7 +161,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 //   height: 51,
                 //   child: const BannerAdWidget(),
                 // ),
-
                 const SizedBox(height: 30),
               ],
             ),

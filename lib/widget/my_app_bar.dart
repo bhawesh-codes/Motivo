@@ -5,10 +5,14 @@ class MyAppbar extends StatelessWidget {
   final String title;
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Image.asset('assets/images/lotus_logo.png'),
+        Image.asset(
+          'assets/images/lotus_logo.png',
+          color: isDark ? Colors.white : Colors.black54,
+        ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
