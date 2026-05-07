@@ -17,10 +17,6 @@
         android:allowBackup="true"
         android:usesCleartextTraffic="true"
         android:hardwareAccelerated="true">
-
-        <meta-data
-            android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-2974757772954867~4272967942"/>
         
         <!-- Required for notifications -->
         <activity

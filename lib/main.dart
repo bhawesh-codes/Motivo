@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
+// import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:motivo/screens/splash_screen.dart';
 import 'package:motivo/services/notification_services.dart';
 import 'package:motivo/theme/app_theme.dart';
@@ -19,13 +19,13 @@ void main() {
 }
 
 void _initializeServices() async {
-  // Initialize AdMob
-  try {
-    await MobileAds.instance.initialize();
-    debugPrint('✅ AdMob initialized');
-  } catch (e) {
-    debugPrint('❌ AdMob error: $e');
-  }
+  // // Initialize AdMob
+  // try {
+  //   await MobileAds.instance.initialize();
+  //   debugPrint('✅ AdMob initialized');
+  // } catch (e) {
+  //   debugPrint('❌ AdMob error: $e');
+  // }
 
   // Request permissions
   try {
